@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Pollo Loco</title>
+
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/responsive.css">
+    <script src="../javasript/models/drawable-object.class.js" defer></script>
+    <script src="../javasript/models/movable-object.class.js" defer></script>
+    <script src="../javasript/models/character.class.js" defer></script>
+    <script src="../javasript/models/chicken.class.js" defer></script>
+    <script src="../javasript/models/chicken-small.class.js" defer></script>
+    <script src="../javasript/models/coin.class.js" defer></script>
+    <script src="../javasript/models/bottle.class.js" defer></script>
+    <script src="../javasript/models/cloud.class.js" defer></script>
+    <script src="../javasript/models/status-bar.class.js" defer></script>
+    <script src="../javasript/models/bottle-status-bar.class.js" defer></script>
+    <script src="../javasript/models/coin-status-bar.class.js" defer></script>
+    <script src="../javasript/models/endboss-status-bar.class.js" defer></script>
+    <script src="../javasript/models/background.class.js" defer></script>
+    <script src="../javasript/models/keyboard.class.js" defer></script>
+    <script src="../javasript/models/level.class.js" defer></script>
+    <script src="../javasript/models/throwable-object.class.js" defer></script>
+    <script src="../javasript/models/endboss.class.js" defer></script>
+    <script src="../javasript/models/world.class.js" defer></script>
+    <script src="../javasript/levels/level1.js" defer></script>
+    <script src="../javasript/audio.class.js" defer></script>
+    <script src="../javasript/game.js" defer></script>
+</head>
+
+<body>
+
+    <div id="start-screen">
+        <h1>El Pollo Loco</h1>
+
+        <div class="menu-row">
+            <div class="menu-item" id="btn-start">
+                <img src="../assets/svg/play_circle.svg" alt="Start">
+                <p>Start</p>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="game-title d-none">El Pollo Loco</h1>
+
+    <div id="fullscreen-container" class="d-none">
+        <canvas id="canvas" width="720" height="480"></canvas>
+
+        <div id="game-over-screen" class="overlay d-none">
+            <img id="game-over-img" src="../assets/img/You won, you lost/You lost.png" alt="Game Over"
+                style="height: 50%;">
+            <div class="menu-row">
+                <button onclick="restartGame()">Nochmal spielen</button>
+            </div>
+        </div>
+
+        <div id="win-screen" class="overlay d-none">
+            <img id="win-img" src="../assets/img/You won, you lost/You won A.png" alt="Gewonnen" style="height: 60%;">
+            <div class="menu-row">
+                <button onclick="restartGame()">Nochmal spielen</button>
+            </div>
+        </div>
+
+        <div class="icon-bar">
+            <button id="home-btn" class="icon-btn" onclick="goHome()" aria-label="Zum Start">
+                <span> <img src="../assets/svg/home-button.svg" alt="home"></span>
+            </button>
+            <button id="mute-btn" class="icon-btn" onclick="toggleMute()" aria-label="Ton umschalten">
+                <span><img id="mute-icon" src="../assets/svg/volume-on.svg" alt="mute icon"></span>
+            </button>
+        </div>
+    </div>
+
+    <div id="touch-controls" class="touch-controls">
+        <div class="touch-group">
+            <button id="btn-left" class="touch-btn"><img src="../assets/svg/arrow_left.svg" alt="btn-left"></button>
+            <button id="btn-right" class="touch-btn"><img src="../assets/svg/arrow_right.svg" alt="btn-right"></button>
+        </div>
+        <div class="touch-group">
+            <button id="btn-jump" class="touch-btn"><img src="../assets/svg/arrow_jump.svg" alt="btn-jump"></button>
+            <button id="btn-throw" class="touch-btn"><img src="../assets/svg/arrow_throw.svg" alt="btn-throw"></button>
+        </div>
+    </div>
+
+    <button id="fullscreen-btn" class="d-none" onclick="toggleFullscreen()">
+        Vollbild
+    </button>
+
+    <div id="rotate-notice" class="rotate-notice">
+        <h2>Bitte dreh dein Gerät ins Querformat</h2>
+    </div>
+
+</body>
+
+</html>
