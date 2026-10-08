@@ -9,6 +9,7 @@ class Character extends MovableObject {
   hitBottom = 10;
   lastMovement = new Date().getTime();
   deadFrame = 0;
+  animationTick = 0;
 
   IMAGES_WALKING = [
     '../assets/img/2_character_pepe/2_walk/W-21.png',
@@ -87,7 +88,7 @@ class Character extends MovableObject {
 
   animate() {
     setInterval(() => this.updateMovement(), 1000 / 60);
-    setInterval(() => this.updateAnimation(), 50);
+    setInterval(() => this.updateAnimation(), 100);
   }
 
   updateMovement() {
@@ -131,9 +132,16 @@ class Character extends MovableObject {
     } else if (this.isWalking()) {
       this.playAnimation(this.IMAGES_WALKING);
     } else if (this.isSleeping()) {
-      this.playAnimation(this.IMAGES_SLEEPING);
+      this.playSlowAnimation(this.IMAGES_SLEEPING, 3);
     } else {
-      this.playAnimation(this.IMAGES_IDLE);
+      this.playSlowAnimation(this.IMAGES_IDLE, 2);
+    }
+  }
+
+  playSlowAnimation(images, everyNthTick) {
+    this.animationTick++;
+    if (this.animationTick % everyNthTick === 0) {
+      this.playAnimation(images);
     }
   }
 

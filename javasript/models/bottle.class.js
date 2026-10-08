@@ -4,12 +4,12 @@ class Bottle extends DrawableObject {
     '../assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png',
   ];
 
-  width = 100;
-  height = 100;
-  y = 350;
-  hitLeft = 30;
-  hitRight = 30;
-  hitTop = 8;
+  width = 60;
+  height = 60;
+  y = 382;
+  hitLeft = 15;
+  hitRight = 15;
+  hitTop = 10;
   hitBottom = 6;
 
   constructor() {

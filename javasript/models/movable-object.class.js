@@ -1,3 +1,5 @@
+const CHARACTER_GROUND_Y = 198;
+
 class MovableObject extends DrawableObject {
   speed = 0.15;
   otherDirection = false;
@@ -12,7 +14,7 @@ class MovableObject extends DrawableObject {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
       } else {
-        this.y = 180;
+        this.y = CHARACTER_GROUND_Y;
         this.speedY = 0;
       }
     }, 1000 / 25);
@@ -22,7 +24,7 @@ class MovableObject extends DrawableObject {
     if (this instanceof ThrowableObject) {
       return true;
     } else {
-      return this.y < 180;
+      return this.y < CHARACTER_GROUND_Y;
     }
   }
 

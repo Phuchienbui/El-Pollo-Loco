@@ -23,6 +23,7 @@ window.addEventListener('load', () => {
         fullscreenContainer.classList.remove('d-none');
         fullscreenBtn.classList.remove('d-none');
         gameTitle.classList.remove('d-none');
+        showTouchControls();
 
         GameAudio.play(GameAudio.THEME);
         init();
@@ -109,6 +110,7 @@ function showGameOverScreen() {
         cancelAnimationFrame(world.animationRequest);
     }
     document.getElementById('game-over-screen').classList.remove('d-none');
+    hideTouchControls();
     clearAllIntervals();
 }
 
@@ -120,6 +122,7 @@ function showWinScreen() {
     if (winScreen) {
         winScreen.classList.remove('d-none');
     }
+    hideTouchControls();
     clearAllIntervals();
 }
 
@@ -135,6 +138,7 @@ function restartGame() {
     clearAllIntervals();
     GameAudio.stopAll();
     GameAudio.play(GameAudio.THEME);
+    showTouchControls();
     init();
 }
 
@@ -149,6 +153,7 @@ function goHome() {
     document.getElementById('fullscreen-btn').classList.add('d-none');
     document.querySelector('.game-title').classList.add('d-none');
     document.getElementById('game-over-screen').classList.add('d-none');
+    hideTouchControls();
     
     let winScreen = document.getElementById('win-screen');
     if (winScreen) {
@@ -156,6 +161,14 @@ function goHome() {
     }
     
     document.getElementById('start-screen').classList.remove('d-none');
+}
+
+function showTouchControls() {
+    document.getElementById('touch-controls').classList.remove('d-none');
+}
+
+function hideTouchControls() {
+    document.getElementById('touch-controls').classList.add('d-none');
 }
 
 function toggleMute() {
