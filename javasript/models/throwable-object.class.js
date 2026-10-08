@@ -36,14 +36,14 @@ class ThrowableObject extends MovableObject {
   }
 
   throw() {
-    this.speedY = 30;
+    this.speedY = 50;
     this.applyGravity();
 
     this.flightTimer = setInterval(() => {
       if (this.hasLanded) {
         return;
       }
-      this.x += 10;
+      this.x += 8;
       if (this.y > SALSA_GROUND_Y) {
         this.hasLanded = true;
         this.speedY = 0;

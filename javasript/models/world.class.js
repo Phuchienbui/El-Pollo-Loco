@@ -82,7 +82,7 @@ class World {
     if (this.keyboard.D && this.collectedBottles > 0 && timeSinceLastThrow > 150) {
       let bottle = new ThrowableObject(
         this.character.x + 100,
-        this.character.y + 100,
+        this.character.y + 50,
       );
       this.throwableObjects.push(bottle);
       this.collectedBottles--;
