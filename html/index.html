@@ -37,13 +37,39 @@
     <div id="start-screen">
         <h1>El Pollo Loco</h1>
 
+        <p class="start-intro">
+            Hilf Pepe, den verrückten Riesen-Endboss zu besiegen! Sammle Münzen und Salsa-Flaschen,
+            weiche den Hühnern aus oder springe ihnen auf den Kopf. Wirf Flaschen auf den Endboss,
+            bis seine Energie leer ist &ndash; aber pass auf, dass Pepe nicht zuerst verliert.
+        </p>
+
+        <ul class="start-controls">
+            <li><kbd>&larr;</kbd> <kbd>&rarr;</kbd> Laufen</li>
+            <li><kbd>Leertaste</kbd> / <kbd>&uarr;</kbd> Springen</li>
+            <li><kbd>D</kbd> Flasche werfen</li>
+            <li class="touch-hint">Am Handy: Steuerung &uuml;ber die Buttons unten</li>
+        </ul>
+
         <div class="menu-row">
             <div class="menu-item" id="btn-start">
                 <img src="../assets/svg/play_circle.svg" alt="Start">
                 <p>Start</p>
             </div>
         </div>
+
+        <button class="legal-link" onclick="openImpressum()">Impressum</button>
     </div>
+
+    <dialog id="impressum-dialog">
+        <div class="dialog-box">
+            <button class="dialog-close" onclick="closeImpressum()" aria-label="Schlie&szlig;en">&times;</button>
+            <h2>Impressum</h2>
+            <p>Angaben gem&auml;&szlig; &sect; 5 DDG</p>
+            <p>Max Mustermann<br>Musterstra&szlig;e 1<br>12345 Musterstadt</p>
+            <p>E-Mail: max.mustermann@example.com</p>
+            <p>Dies ist ein privates Lernprojekt ohne kommerzielle Absicht.</p>
+        </div>
+    </dialog>
 
     <h1 class="game-title d-none">El Pollo Loco</h1>
 

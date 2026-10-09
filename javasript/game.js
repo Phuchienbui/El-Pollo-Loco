@@ -171,6 +171,14 @@ function hideTouchControls() {
     document.getElementById('touch-controls').classList.add('d-none');
 }
 
+function openImpressum() {
+    document.getElementById('impressum-dialog').showModal();
+}
+
+function closeImpressum() {
+    document.getElementById('impressum-dialog').close();
+}
+
 function toggleMute() {
     GameAudio.toggleMute(); 
     

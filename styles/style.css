@@ -216,3 +216,73 @@ dialog::backdrop {
   border: none;
   color: #7a3b12;
 }
+
+.start-intro {
+  max-width: 32em;
+  padding: 0 16px;
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: center;
+  color: #fff3d6;
+  text-shadow: 1px 1px 0 #7a3b12;
+}
+
+.start-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  list-style: none;
+  font-size: 15px;
+  color: #ffcf4d;
+}
+
+.start-controls kbd {
+  padding: 1px 8px;
+  font-family: inherit;
+  font-weight: bold;
+  color: #2b1d12;
+  background-color: #ffcf4d;
+  border: 2px solid #7a3b12;
+  border-radius: 6px;
+}
+
+.touch-hint {
+  display: none;
+}
+
+.legal-link {
+  background: none;
+  border: none;
+  color: #ffcf4d;
+  font-size: 14px;
+  text-decoration: underline;
+  text-shadow: 1px 1px 0 #7a3b12;
+}
+
+.legal-link:hover {
+  color: #ffe08a;
+}
+
+#impressum-dialog {
+  font-size: 16px;
+  width: min(24em, calc(100vw - 24px));
+}
+
+#impressum-dialog h2 {
+  font-size: 1.4em;
+  color: #7a3b12;
+}
+
+#impressum-dialog .dialog-box p {
+  font-size: 0.95em;
+  font-weight: normal;
+  line-height: 1.4;
+}
+
+.dialog-box .dialog-close {
+  padding: 0;
+  background: none;
+  border: none;
+  font-size: 1.6em;
+}
