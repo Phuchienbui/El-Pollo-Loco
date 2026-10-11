@@ -123,6 +123,7 @@ class Character extends MovableObject {
 
   updateAnimation() {
     if (!this.world) return;
+    this.updateSnoreSound();
     if (this.isDead()) {
       this.playDeadAnimation();
     } else if (this.isHurt()) {
@@ -135,6 +136,16 @@ class Character extends MovableObject {
       this.playSlowAnimation(this.IMAGES_SLEEPING, 3);
     } else {
       this.playSlowAnimation(this.IMAGES_IDLE, 2);
+    }
+  }
+
+  updateSnoreSound() {
+    let isSnoring =
+      !this.isDead() && !this.isHurt() && !this.isAboveGround() && !this.isWalking() && this.isSleeping();
+    if (isSnoring && GameAudio.SNORE.paused) {
+      GameAudio.play(GameAudio.SNORE);
+    } else if (!isSnoring && !GameAudio.SNORE.paused) {
+      GameAudio.stop(GameAudio.SNORE);
     }
   }
 

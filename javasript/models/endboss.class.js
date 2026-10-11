@@ -75,6 +75,7 @@ class Endboss extends MovableObject {
         this.world.character.x > this.x - 600
       ) {
         this.isAlerted = true;
+        GameAudio.play(GameAudio.BOSS_ALERT);
       }
 
       if (this.isAlerted && !this.isDead()) {

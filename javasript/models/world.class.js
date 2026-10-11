@@ -120,6 +120,7 @@ class World {
       ) {
         enemy.hitpoints = 0;
         this.character.speedY = 15;
+        GameAudio.play(GameAudio.CHICKEN);
       }
     });
   }
@@ -135,8 +136,10 @@ class World {
           if (enemy instanceof Endboss) {
             enemy.hit();
             this.endbossStatusBar.setPercentage((enemy.energy / 100) * 100);
+            GameAudio.play(GameAudio.BOSS_HIT);
           } else {
             enemy.hitpoints = 0;
+            GameAudio.play(GameAudio.CHICKEN);
           }
         }
       });
@@ -170,6 +173,7 @@ class World {
         this.level.bottles.splice(this.level.bottles.indexOf(bottle), 1);
         this.collectedBottles++;
         this.bottleStatusBar.setPercentage((this.collectedBottles / 6) * 100);
+        GameAudio.play(GameAudio.BOTTLE);
       }
     });
   }

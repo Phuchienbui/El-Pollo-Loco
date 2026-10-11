@@ -6,6 +6,11 @@ class GameAudio {
     static THROW = new Audio('../assets/audio/throw.mp3');
     static WIN = new Audio('../assets/audio/win.mp3');
     static LOSE = new Audio('../assets/audio/lose.mp3');
+    static BOTTLE = new Audio('../assets/audio/bottle.wav');
+    static SNORE = new Audio('../assets/audio/snore.wav');
+    static CHICKEN = new Audio('../assets/audio/chicken.wav');
+    static BOSS_HIT = new Audio('../assets/audio/boss-hit.wav');
+    static BOSS_ALERT = new Audio('../assets/audio/boss-alert.wav');
 
     static ALL_SOUNDS = [
         GameAudio.THEME,
@@ -15,12 +20,18 @@ class GameAudio {
         GameAudio.THROW,
         GameAudio.WIN,
         GameAudio.LOSE,
+        GameAudio.BOTTLE,
+        GameAudio.SNORE,
+        GameAudio.CHICKEN,
+        GameAudio.BOSS_HIT,
+        GameAudio.BOSS_ALERT,
     ];
 
     static muted = false;
 
     static {
         GameAudio.THEME.loop = true;
+        GameAudio.SNORE.loop = true;
         GameAudio.muted = localStorage.getItem('pepeMuted') === 'true';
     }
 
