@@ -170,3 +170,8 @@
     gap: 8px;
   }
 }
+.touch-btn .bottle-icon {
+  width: 65%;
+  height: 65%;
+  object-fit: contain;
+}
