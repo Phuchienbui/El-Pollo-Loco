@@ -1,3 +1,6 @@
+/**
+ * Statische Verwaltung aller Sounds des Spiels (Abspielen, Stoppen, Stummschalten, Lautstärke).
+ */
 class GameAudio {
     static THEME = new Audio('../assets/audio/openmindaudio-high-noon-duel-western-music-preview-545324.mp3');
     static JUMP = new Audio('../assets/audio/jump.mp3');
@@ -35,6 +38,10 @@ class GameAudio {
         GameAudio.muted = localStorage.getItem('pepeMuted') === 'true';
     }
 
+    /**
+     * Spielt einen Sound ab, sofern nicht stummgeschaltet. Außer dem Theme wird er vorher an den Anfang gesetzt.
+     * @param {HTMLAudioElement} sound - Das abzuspielende Audio-Objekt.
+     */
     static play(sound) {
         if (GameAudio.muted) {
             return;
@@ -45,6 +52,10 @@ class GameAudio {
         sound.play().catch(() => {});
     }
 
+    /**
+     * Pausiert einen Sound. Außer dem Theme wird die Wiedergabeposition auf 0 zurückgesetzt.
+     * @param {HTMLAudioElement} sound - Das zu stoppende Audio-Objekt.
+     */
     static stop(sound) {
         sound.pause();
         if (sound !== GameAudio.THEME) {
@@ -52,6 +63,7 @@ class GameAudio {
         }
     }
 
+    /** Stoppt alle Sounds außer dem Hintergrund-Theme. */
     static stopAll() {
         GameAudio.ALL_SOUNDS.forEach(s => {
             if (s !== GameAudio.THEME) {
@@ -60,6 +72,7 @@ class GameAudio {
         });
     }
 
+    /** Schaltet die Stummschaltung um und speichert sie im localStorage; beim Stummschalten werden alle Sounds gestoppt, beim Einschalten startet das Theme. */
     static toggleMute() {
         GameAudio.muted = !GameAudio.muted;
         localStorage.setItem('pepeMuted', GameAudio.muted);
@@ -71,6 +84,10 @@ class GameAudio {
         }
     }
 
+    /**
+     * Setzt die Lautstärke aller Sounds.
+     * @param {number} value - Lautstärke zwischen 0 und 1.
+     */
     static setVolume(value) {
         GameAudio.ALL_SOUNDS.forEach(s => s.volume = value);
     }

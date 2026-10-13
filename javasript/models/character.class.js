@@ -1,16 +1,25 @@
+/**
+ * Spielfigur Pepe: steuert Bewegung, Sprung, Animationen und Schnarchsound per Tastatur.
+ * @extends MovableObject
+ */
 class Character extends MovableObject {
   height = 250;
   y = 80;
+  /** Referenz auf die Spielwelt mit Tastatur, Level und Kamera. */
   world;
   speed = 10;
   hitLeft = 25;
   hitRight = 25;
   hitTop = 80;
   hitBottom = 10;
+  /** Zeitstempel (ms seit 1970) der letzten Bewegung; steuert den Schlafzustand. */
   lastMovement = new Date().getTime();
+  /** Index des aktuellen Frames der Todesanimation. */
   deadFrame = 0;
+  /** Zähler für langsamere Animationen (siehe playSlowAnimation). */
   animationTick = 0;
 
+  /** Bildpfade der Animationen (Gehen, Springen, Tod, Verletzt, Idle, Schlafen). */
   IMAGES_WALKING = [
     '../assets/img/2_character_pepe/2_walk/W-21.png',
     '../assets/img/2_character_pepe/2_walk/W-22.png',
@@ -74,6 +83,9 @@ class Character extends MovableObject {
     '../assets/img/2_character_pepe/1_idle/long_idle/I-20.png',
   ];
 
+  /**
+   * Lädt alle Animationsbilder und startet Schwerkraft sowie die Animationsschleifen.
+   */
   constructor() {
     super().loadImage('../assets/img/2_character_pepe/2_walk/W-21.png');
     this.loadImages(this.IMAGES_WALKING);
@@ -86,11 +98,13 @@ class Character extends MovableObject {
     this.animate();
   }
 
+  /** Startet die Intervalle für Bewegung (60 Mal pro Sekunde) und Animation (alle 100 ms). */
   animate() {
     setInterval(() => this.updateMovement(), 1000 / 60);
     setInterval(() => this.updateAnimation(), 100);
   }
 
+  /** Verarbeitet pro Tick Tastatureingaben und Sprung und richtet die Kamera an der Figur aus. */
   updateMovement() {
     if (!this.world) return;
     if (!this.isDead()) {
@@ -100,6 +114,7 @@ class Character extends MovableObject {
     this.world.camera_x = -this.x + 100;
   }
 
+  /** Bewegt die Figur nach links oder rechts, solange die Pfeiltaste gedrückt ist und das Levelende bzw. der Rand nicht überschritten wird. */
   moveByKeyboard() {
     if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
       this.moveRight();
@@ -113,6 +128,7 @@ class Character extends MovableObject {
     }
   }
 
+  /** Startet einen Sprung, wenn Leertaste oder Pfeil nach oben gedrückt ist und die Figur am Boden steht. */
   checkJump() {
     if ((this.world.keyboard.SPACE || this.world.keyboard.UP) && !this.isAboveGround()) {
       this.jump();
@@ -121,6 +137,7 @@ class Character extends MovableObject {
     }
   }
 
+  /** Wählt je nach Zustand (tot, verletzt, in der Luft, gehend, schlafend, Idle) die passende Animation. */
   updateAnimation() {
     if (!this.world) return;
     this.updateSnoreSound();
@@ -139,6 +156,7 @@ class Character extends MovableObject {
     }
   }
 
+  /** Startet den Schnarchsound, wenn die Figur schläft, und stoppt ihn, wenn sie nicht mehr schläft. */
   updateSnoreSound() {
     let isSnoring =
       !this.isDead() && !this.isHurt() && !this.isAboveGround() && !this.isWalking() && this.isSleeping();
@@ -149,6 +167,11 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * Spielt eine Animation verlangsamt ab, indem nur bei jedem n-ten Tick ein Frame gewechselt wird.
+   * @param {string[]} images - Bildpfade der Animation.
+   * @param {number} everyNthTick - Anzahl der Ticks zwischen zwei Frame-Wechseln.
+   */
   playSlowAnimation(images, everyNthTick) {
     this.animationTick++;
     if (this.animationTick % everyNthTick === 0) {
@@ -156,6 +179,7 @@ class Character extends MovableObject {
     }
   }
 
+  /** Spielt die Todesanimation Frame für Frame ab und bleibt beim letzten Frame stehen. */
   playDeadAnimation() {
     if (this.deadFrame < this.IMAGES_DEAD.length - 1) {
       this.deadFrame++;
@@ -163,15 +187,24 @@ class Character extends MovableObject {
     this.img = this.imageCache[this.IMAGES_DEAD[this.deadFrame]];
   }
 
+  /**
+   * Prüft, ob die Pfeiltaste nach links oder rechts gedrückt ist.
+   * @returns {boolean} true, wenn sich die Figur per Tastatur bewegt.
+   */
   isWalking() {
     return this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
   }
 
+  /**
+   * Prüft, ob seit mehr als 15 Sekunden keine Bewegung stattgefunden hat.
+   * @returns {boolean} true, wenn die Figur schläft.
+   */
   isSleeping() {
     let timePassed = (new Date().getTime() - this.lastMovement) / 1000;
     return timePassed > 15;
   }
 
+  /** Startet einen Sprung, indem speedY auf 30 gesetzt wird. */
   jump() {
     this.speedY = 30;
   }

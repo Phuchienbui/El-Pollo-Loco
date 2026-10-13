@@ -1,5 +1,10 @@
+/** Y-Koordinate des Bodens, auf dem eine Salsaflasche landet. */
 const SALSA_GROUND_Y = 360;
 
+/**
+ * Geworfene Salsaflasche: fliegt, landet auf dem Boden und zerspringt dort.
+ * @extends MovableObject
+ */
 class ThrowableObject extends MovableObject {
   height = 60;
   width = 50;
@@ -26,6 +31,11 @@ class ThrowableObject extends MovableObject {
     '../assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
   ];
 
+  /**
+   * Erstellt eine Flasche an der Startposition und startet den Wurf.
+   * @param {number} x - X-Startposition der Flasche.
+   * @param {number} y - Y-Startposition der Flasche.
+   */
   constructor(x, y) {
     super().loadImage(this.IMAGES_FLYING[0]);
     this.loadImages(this.IMAGES_FLYING);
@@ -35,6 +45,9 @@ class ThrowableObject extends MovableObject {
     this.throw();
   }
 
+  /**
+   * Startet Schwerkraft, Vorwärtsbewegung und Animation; nach der Landung läuft die Splash-Animation und die Timer werden danach beendet.
+   */
   throw() {
     this.speedY = 35;
     this.applyGravity();

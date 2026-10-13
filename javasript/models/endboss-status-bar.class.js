@@ -1,3 +1,7 @@
+/**
+ * Statusanzeige für die Energie des Endbosses.
+ * @extends DrawableObject
+ */
 class EndbossStatusBar extends DrawableObject {
   IMAGES = [
     '../assets/img/7_statusbars/2_statusbar_endboss/orange/orange0.png',
@@ -10,6 +14,9 @@ class EndbossStatusBar extends DrawableObject {
 
   percentage = 100;
 
+  /**
+   * Lädt die Bilder und positioniert die Anzeige rechts oben mit 100 % Energie.
+   */
   constructor() {
     super();
     this.loadImages(this.IMAGES);
@@ -20,12 +27,20 @@ class EndbossStatusBar extends DrawableObject {
     this.setPercentage(100);
   }
 
+  /**
+   * Setzt den Füllstand und wählt das passende Statusbild.
+   * @param {number} percentage - Energie in Prozent (0 bis 100).
+   */
   setPercentage(percentage) {
     this.percentage = percentage;
     let path = this.IMAGES[this.resolveImageIndex()];
     this.img = this.imageCache[path];
   }
 
+  /**
+   * Ermittelt den Index des Statusbildes anhand des Prozentwerts.
+   * @returns {number} Index im IMAGES-Array (0 bis 5).
+   */
   resolveImageIndex() {
     if (this.percentage == 100) {
       return 5;

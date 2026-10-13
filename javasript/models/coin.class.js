@@ -1,3 +1,7 @@
+/**
+ * Münze, die in der Luft schwebt und eingesammelt werden kann.
+ * @extends DrawableObject
+ */
 class Coin extends DrawableObject {
   IMAGES = ['../assets/img/8_coin/coin_1.png', '../assets/img/8_coin/coin_2.png'];
 
@@ -8,6 +12,9 @@ class Coin extends DrawableObject {
   hitTop = 20;
   hitBottom = 20;
 
+  /**
+   * Erstellt eine Münze an zufälliger X-Position (200 bis 2200) und Höhe (50 bis 200).
+   */
   constructor() {
     super().loadImage(this.IMAGES[0]);
     this.loadImages(this.IMAGES);

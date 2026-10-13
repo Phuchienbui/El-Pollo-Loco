@@ -1,11 +1,17 @@
+/**
+ * Endboss-Gegner: wird ab einer bestimmten Entfernung aktiv, verfolgt die Figur und reagiert auf Treffer.
+ * @extends MovableObject
+ */
 class Endboss extends MovableObject {
   height = 400;
   width = 250;
   y = 55;
   speed = 2;
   world;
+  /** true, sobald die Figur in den Aktivierungsbereich des Bosses kommt. */
   isAlerted = false;
   energy = 100;
+  /** true für 500 ms nach einem Treffer; steuert die Verletzt-Animation. */
   isHurtNow = false;
   hitLeft = 40;
   hitRight = 30;
@@ -42,6 +48,9 @@ class Endboss extends MovableObject {
     '../assets/img/4_enemie_boss_chicken/5_dead/G26.png',
   ];
 
+  /**
+   * Lädt alle Animationsbilder, platziert den Boss bei x = 2500 und startet die Animation.
+   */
   constructor() {
     super().loadImage(this.IMAGES_WALKING[0]);
     this.loadImages(this.IMAGES_WALKING);
@@ -52,6 +61,9 @@ class Endboss extends MovableObject {
     this.animate();
   }
 
+  /**
+   * Reduziert die Energie um 20 und aktiviert für 500 ms die Verletzt-Animation.
+   */
   hit() {
     this.energy -= 20;
     if (this.energy < 0) {
@@ -63,10 +75,17 @@ class Endboss extends MovableObject {
     }, 500);
   }
 
+  /**
+   * Prüft, ob die Energie auf 0 gesunken ist.
+   * @returns {boolean} true, wenn der Boss tot ist.
+   */
   isDead() {
     return this.energy <= 0;
   }
 
+  /**
+   * Startet die Verfolgungslogik (60 Mal pro Sekunde) und den Animationswechsel alle 200 ms.
+   */
   animate() {
     setInterval(() => {
       if (

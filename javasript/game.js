@@ -1,14 +1,20 @@
+/** @type {HTMLCanvasElement|null} Canvas-Element, auf dem das Spiel gezeichnet wird. */
 let canvas;
+/** @type {World|undefined} Aktuelle Spielwelt, wird in init() erzeugt. */
 let world;
+/** @type {Keyboard} Zustand der Tastatur- und Touch-Eingaben. */
 let keyboard = new Keyboard();
+/** @type {boolean} Debug-Flag (Standard: false). */
 let debugMode = false;
 
+/** Erstellt das Level und die Spielwelt auf dem Canvas. */
 function init() {
     initLevel();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 }
 
+/** Richtet nach dem Laden der Seite Startbutton, Mute-Icon und Touch-Buttons ein. */
 window.addEventListener('load', () => {
     const startScreen = document.getElementById('start-screen');
     const startButton = document.getElementById('btn-start');
@@ -73,6 +79,7 @@ window.addEventListener('load', () => {
     });
 });
 
+/** Setzt beim Drücken von Pfeiltasten, Leertaste oder D das entsprechende Flag in keyboard. */
 window.addEventListener('keydown', (e) => {
     if (e.keyCode == 39) keyboard.RIGHT = true;
     if (e.keyCode == 37) keyboard.LEFT = true;
@@ -82,6 +89,7 @@ window.addEventListener('keydown', (e) => {
     if (e.keyCode == 68) keyboard.D = true;
 });
 
+/** Setzt beim Loslassen der Tasten das entsprechende Flag in keyboard zurück. */
 window.addEventListener('keyup', (e) => {
     if (e.keyCode == 39) keyboard.RIGHT = false;
     if (e.keyCode == 37) keyboard.LEFT = false;
@@ -91,6 +99,7 @@ window.addEventListener('keyup', (e) => {
     if (e.keyCode == 68) keyboard.D = false;
 });
 
+/** Schaltet den Vollbildmodus des Spielcontainers um; auf Touch-Geräten ohne Wirkung. */
 function toggleFullscreen() {
     let fullscreenElement = document.getElementById('fullscreen-container');
 
@@ -105,6 +114,7 @@ function toggleFullscreen() {
     }
 }
 
+/** Zeigt den Game-Over-Bildschirm, stoppt die Animation, blendet die Touch-Steuerung aus und löscht alle Intervalle. */
 function showGameOverScreen() {
     if (world && world.animationRequest) {
         cancelAnimationFrame(world.animationRequest);
@@ -114,6 +124,7 @@ function showGameOverScreen() {
     clearAllIntervals();
 }
 
+/** Zeigt den Gewinn-Bildschirm, stoppt die Animation, blendet die Touch-Steuerung aus und löscht alle Intervalle. */
 function showWinScreen() {
     if (world && world.animationRequest) {
         cancelAnimationFrame(world.animationRequest);
@@ -126,6 +137,7 @@ function showWinScreen() {
     clearAllIntervals();
 }
 
+/** Startet das Spiel neu: blendet End-Screens aus, stoppt Sounds, spielt das Theme und initialisiert die Welt neu. */
 function restartGame() {
     if (world && world.animationRequest) {
         cancelAnimationFrame(world.animationRequest);
@@ -142,6 +154,7 @@ function restartGame() {
     init();
 }
 
+/** Kehrt zum Startbildschirm zurück: stoppt Animation und Sounds und blendet die Spielelemente aus. */
 function goHome() {
     if (world && world.animationRequest) {
         cancelAnimationFrame(world.animationRequest);
@@ -163,22 +176,27 @@ function goHome() {
     document.getElementById('start-screen').classList.remove('d-none');
 }
 
+/** Blendet die Touch-Steuerung ein. */
 function showTouchControls() {
     document.getElementById('touch-controls').classList.remove('d-none');
 }
 
+/** Blendet die Touch-Steuerung aus. */
 function hideTouchControls() {
     document.getElementById('touch-controls').classList.add('d-none');
 }
 
+/** Öffnet den Impressum-Dialog als Modal. */
 function openImpressum() {
     document.getElementById('impressum-dialog').showModal();
 }
 
+/** Schließt den Impressum-Dialog. */
 function closeImpressum() {
     document.getElementById('impressum-dialog').close();
 }
 
+/** Schaltet die Stummschaltung über GameAudio um und aktualisiert das Lautsprecher-Icon. */
 function toggleMute() {
     GameAudio.toggleMute(); 
     
@@ -192,6 +210,7 @@ function toggleMute() {
     }
 }
 
+/** Löscht alle Intervalle mit den IDs 1 bis 9998 über clearInterval. */
 function clearAllIntervals() {
     for (let i = 1; i < 9999; i++) {
         window.clearInterval(i);

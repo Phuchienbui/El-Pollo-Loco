@@ -1,7 +1,12 @@
+/**
+ * Kleines Huhn als Gegner: läuft schneller nach links und wird durch Draufspringen besiegt.
+ * @extends MovableObject
+ */
 class ChickenSmall extends MovableObject {
   y = 385;
   height = 45;
   width = 60;
+  /** Verbleibende Trefferpunkte; bei 0 oder weniger ist das Huhn tot. */
   hitpoints = 1;
   hitLeft = 7;
   hitRight = 7;
@@ -14,8 +19,12 @@ class ChickenSmall extends MovableObject {
     '../assets/img/3_enemies_chicken/chicken_small/1_walk/3_w.png',
   ];
 
+  /** Bildpfad des plattgedrückten kleinen Huhns. */
   IMAGE_SQUASHED = '../assets/img/3_enemies_chicken/chicken_small/2_dead/dead.png';
 
+  /**
+   * Erstellt das kleine Huhn an einer zufälligen Position rechts im Level mit zufälliger Geschwindigkeit.
+   */
   constructor() {
     super().loadImage(this.IMAGES_WALKING[0]);
     this.loadImages(this.IMAGES_WALKING);
@@ -24,6 +33,7 @@ class ChickenSmall extends MovableObject {
     this.animate();
   }
 
+  /** Startet die Laufbewegung nach links (solange lebendig) und den Bildwechsel alle 200 ms. */
   animate() {
     setInterval(() => {
       if (this.hitpoints > 0) {
@@ -40,10 +50,15 @@ class ChickenSmall extends MovableObject {
     }, 200);
   }
 
+  /**
+   * Prüft, ob keine Trefferpunkte mehr übrig sind.
+   * @returns {boolean} true, wenn das Huhn tot ist.
+   */
   isDead() {
     return this.hitpoints <= 0;
   }
 
+  /** Verringert die Trefferpunkte um 1. */
   takeDamage() {
     this.hitpoints--;
   }

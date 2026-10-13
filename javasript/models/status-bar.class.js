@@ -1,3 +1,7 @@
+/**
+ * Statusanzeige für die Lebensenergie der Figur.
+ * @extends DrawableObject
+ */
 class StatusBar extends DrawableObject {
   IMAGES = [
     '../assets/img/7_statusbars/1_statusbar/2_statusbar_health/orange/0.png',
@@ -10,6 +14,9 @@ class StatusBar extends DrawableObject {
 
   percentage = 100;
 
+  /**
+   * Lädt die Bilder und positioniert die Anzeige oben links mit 100 % Energie.
+   */
   constructor() {
     super();
     this.loadImages(this.IMAGES);
@@ -20,12 +27,20 @@ class StatusBar extends DrawableObject {
     this.setPercentage(100);
   }
 
+  /**
+   * Setzt den Füllstand und wählt das passende Statusbild.
+   * @param {number} percentage - Füllstand in Prozent (0 bis 100).
+   */
   setPercentage(percentage) {
     this.percentage = percentage;
     let path = this.IMAGES[this.resolveImageIndex()];
     this.img = this.imageCache[path];
   }
 
+  /**
+   * Ermittelt den Index des Statusbildes anhand des Prozentwerts.
+   * @returns {number} Index im IMAGES-Array (0 bis 5).
+   */
   resolveImageIndex() {
     if (this.percentage == 100) {
       return 5;
